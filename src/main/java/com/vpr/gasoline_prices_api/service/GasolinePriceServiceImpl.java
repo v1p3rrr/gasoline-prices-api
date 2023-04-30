@@ -70,14 +70,14 @@ public class GasolinePriceServiceImpl implements GasolinePriceService{
     public void insertData() {
         // Insert cities
         List<CityEntity> cities = Arrays.asList(
-                new CityEntity("Moscow"),
-                new CityEntity("Saint Petersburg"),
-                new CityEntity("Ekaterinburg"),
-                new CityEntity("Volgograd"),
-                new CityEntity("Perm"),
-                new CityEntity("Novosibirsk"),
-                new CityEntity("Irkutsk"),
-                new CityEntity("Krasnodar")
+                new CityEntity("Москва"),
+                new CityEntity("Санкт-Петербург"),
+                new CityEntity("Екатеринбург"),
+                new CityEntity("Волгоград"),
+                new CityEntity("Пермь"),
+                new CityEntity("Новосибирск"),
+                new CityEntity("Иркутск"),
+                new CityEntity("Краснодар")
         );
         cityRepository.saveAll(cities);
 
