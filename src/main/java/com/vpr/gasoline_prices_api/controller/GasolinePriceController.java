@@ -3,6 +3,7 @@ package com.vpr.gasoline_prices_api.controller;
 import com.vpr.gasoline_prices_api.model.dto.CityWithPriceListDTO;
 import com.vpr.gasoline_prices_api.service.GasolinePriceService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 @RequestMapping("/price")
 public class GasolinePriceController {
 
-    private GasolinePriceService gasolinePriceService;
+    private final GasolinePriceService gasolinePriceService;
 
     @GetMapping("/{city}")
     public List<CityWithPriceListDTO> getPriceListByCity(@PathVariable String city) {

@@ -6,12 +6,14 @@ import com.vpr.gasoline_prices_api.model.entity.GasolinePriceEntity;
 import com.vpr.gasoline_prices_api.model.mapper.GasolinePriceMapper;
 import com.vpr.gasoline_prices_api.repository.CityRepository;
 import com.vpr.gasoline_prices_api.repository.GasolinePriceRepository;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -62,5 +64,37 @@ public class GasolinePriceServiceImpl implements GasolinePriceService{
                 .map(gasolinePriceMapper::toDto)
                 .toList();
         return pricesDTO;
+    }
+
+    @PostConstruct
+    public void insertData() {
+        // Insert cities
+        List<CityEntity> cities = Arrays.asList(
+                new CityEntity("Moscow"),
+                new CityEntity("Saint Petersburg"),
+                new CityEntity("Ekaterinburg"),
+                new CityEntity("Volgograd"),
+                new CityEntity("Perm"),
+                new CityEntity("Novosibirsk"),
+                new CityEntity("Irkutsk"),
+                new CityEntity("Krasnodar")
+        );
+        cityRepository.saveAll(cities);
+
+        // Generate all possible combinations of gasoline_price objects
+        List<GasolinePriceEntity> gasolinePrices = new ArrayList<>();
+        List<String> gasolineTypes = Arrays.asList("92", "95", "98", "diesel");
+        LocalDate startDate = LocalDate.of(2022, 9, 1);
+        LocalDate endDate = LocalDate.of(2023, 4, 30);
+        for (CityEntity city : cities) {
+            for (String gasolineType : gasolineTypes) {
+                for (LocalDate date = startDate; date.isBefore(endDate); date = date.plusDays(1)) {
+                    Double price = (Math.floor(Math.random() * (70 - 50 + 1) + 50));
+                    GasolinePriceEntity gasolinePrice = new GasolinePriceEntity(gasolineType, city, price, "rub", date);
+                    gasolinePrices.add(gasolinePrice);
+                }
+            }
+        }
+        gasolinePriceRepository.saveAll(gasolinePrices);
     }
 }

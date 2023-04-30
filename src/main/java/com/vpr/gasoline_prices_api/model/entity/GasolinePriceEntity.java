@@ -2,10 +2,7 @@ package com.vpr.gasoline_prices_api.model.entity;
 
 import com.vpr.gasoline_prices_api.model.enums.GasolineType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -18,20 +15,27 @@ import java.time.LocalDate;
 public class GasolinePriceEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id = null;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "gasoline_type", nullable = false)
-    private GasolineType gasolineType;
+    private String gasolineType;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "city_id")
     private CityEntity cityEntity;
 
     @Column(name = "price", nullable = false)
-    private Long price;
+    private Double price;
     @Column(name = "currency", nullable = false)
     private String currency;
     @Column(name = "date", nullable = false)
     private LocalDate date;
+
+    public GasolinePriceEntity(String gasolineType, CityEntity cityEntity, Double price, String currency, LocalDate date) {
+        this.gasolineType = gasolineType;
+        this.cityEntity = cityEntity;
+        this.price = price;
+        this.currency = currency;
+        this.date = date;
+    }
 }

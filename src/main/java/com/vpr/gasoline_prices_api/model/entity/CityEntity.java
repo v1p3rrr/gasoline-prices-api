@@ -1,10 +1,7 @@
 package com.vpr.gasoline_prices_api.model.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,4 +17,7 @@ public class CityEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
+    public CityEntity(String name) {
+        this.name = name;
+    }
 }
