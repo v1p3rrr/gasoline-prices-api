@@ -15,25 +15,35 @@ public class GasolinePriceController {
 
     private final GasolinePriceService gasolinePriceService;
 
-    @GetMapping("/{city}")
+    @GetMapping("/cities")
+    public List<String> getCitiesList() {
+        System.out.println("getCitiesList ");
+        return gasolinePriceService.getCitiesList();
+
+    }
+    @GetMapping("/price/{city}")
     public List<CityWithPriceListDTO> getPriceListByCity(@PathVariable String city) {
+        System.out.println("getPriceListByCity " + city);
         return gasolinePriceService.getPriceListByCity(city);
+
     }
 
-    @GetMapping("/{city}/date-range/{dateStart}/{dateEnd}")
+    @GetMapping("/price/{city}/date-range/{dateStart}/{dateEnd}")
     public List<CityWithPriceListDTO> getPriceListByCityAndDateRange(
             @PathVariable String city,
             @PathVariable String dateStart,
             @PathVariable String dateEnd
     ) {
+        System.out.println("getPriceListByCityAndDateRange " + city + ", " + dateStart+ ", "+dateEnd);
         return gasolinePriceService.getPriceListByCityAndDateRange(city, dateStart, dateEnd);
     }
 
-    @GetMapping("/{city}/date/{date}")
+    @GetMapping("/price/{city}/date/{date}")
     public CityWithPriceListDTO getPriceListByCityAndDate(
             @PathVariable String city,
             @PathVariable String date
     ) {
+        System.out.println("getPriceListByCityAndDate " + city + ", " + date);
         return gasolinePriceService.getPriceListByCityAndDate(city, date);
     }
 
