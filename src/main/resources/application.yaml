@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:test # H2 in-memory database URL
+    driver-class-name: org.h2.Driver # H2 driver class name
+    username: sa # H2 default username
+    password:  # H2 default password (no password)
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect # H2 dialect for Hibernate
+    hibernate:
+      ddl-auto: create # Create tables automatically based on JPA entities
+      show-sql: true # Log SQL queries
+      format-sql: true # Format SQL queries for readability
